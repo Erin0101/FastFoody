@@ -1,0 +1,83 @@
+﻿<%- include('../partials/head', {title:'Cart', bodyClass:'sub_page'}) %>
+<%- include('../partials/header') %>
+
+<section class="cart_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Your Cart</h2>
+      <p>Review your selection, update quantities, and proceed to checkout.</p>
+    </div>
+
+    <div class="cart_table-wrap">
+      <table class="cart">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% const cartItems = cart || []; %>
+          <% if (cartItems.length) { %>
+            <% cartItems.forEach(function(item) { %>
+              <tr>
+                <td>
+                  <div class="product-info">
+                    <img src="/images/<%= item.image %>" alt="<%= item.name %>" />
+                    <div>
+                      <p class="product-name"><%= item.name %></p>
+                      <% if (item.sale_price) { %>
+                        <small>$<%= item.sale_price %></small>
+                      <% } else { %>
+                        <small>$<%= item.price %></small>
+                      <% } %>
+                      <form method="post" action="/remove_product" class="remove-form">
+                        <input type="hidden" name="id" value="<%= item.id %>" />
+                        <input type="submit" name="remove_btn" class="remove-btn" value="Remove" />
+                      </form>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <form method="post" action="/edit_product_quantity" class="quantity-form">
+                    <input type="hidden" name="id" value="<%= item.id %>" />
+                    <button type="submit" name="decrease_product_quantity" class="edit-btn">-</button>
+                    <span class="quantity-value"><%= item.quantity %></span>
+                    <button type="submit" name="increase_product_quantity" class="edit-btn">+</button>
+                  </form>
+                </td>
+                <td>
+                  <% const subtotal = item.sale_price ? item.sale_price * item.quantity : item.price * item.quantity; %>
+                  <span class="product-price">$<%= subtotal %></span>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="3" class="text-center cart-empty">Your cart is empty.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-total">
+      <table>
+        <tr>
+          <td>Total</td>
+          <td>$<%= total || 0 %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="checkout-container">
+      <form method="get" action="/checkout">
+        <button class="btn checkout-btn" type="submit">Proceed to Checkout</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

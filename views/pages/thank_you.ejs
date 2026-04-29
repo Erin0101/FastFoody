@@ -1,0 +1,19 @@
+﻿<%- include('../partials/head', {title:'Thank You', bodyClass:'sub_page'}) %>
+<%- include('../partials/header') %>
+
+<section class="thankyou_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Thank You</h2>
+      <p>Your order has been received and is being prepared now.</p>
+    </div>
+    <div class="thankyou-card text-center">
+      <p>Order ID: <strong><%= order_id %></strong></p>
+      <p>We will notify you shortly with delivery updates.</p>
+      <a href="/" class="order_online">Continue Shopping</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>

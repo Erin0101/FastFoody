@@ -1,0 +1,22 @@
+﻿<%- include('../partials/head', {title:'Payment', bodyClass:'sub_page'}) %>
+<%- include('../partials/header') %>
+
+<section class="food_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Payment</h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="detail-box text-center">
+          <p>Your payment amount is <strong>$<%= total || 0 %></strong>.</p>
+          <p>Click below to complete your order.</p>
+          <a href="/verify_payment?transaction_id=demo" class="order_online">Confirm Payment</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
+<%- include('../partials/scripts') %>
